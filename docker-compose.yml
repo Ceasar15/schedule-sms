@@ -6,9 +6,13 @@ services:
     build: ./services/backend
     ports:
       - 5000:5000
+    environment:
+      - DATABASE_URL=postgres://postgres:edem1234@db:5432/schedule_sms_db
     volumes:
       - ./services/backend:/app
     command: uvicorn src.main:app --reload --host 0.0.0.0 --port 5000
+    depends_on:
+      - db
 
   frontend:
     build: ./services/frontend
@@ -17,4 +21,16 @@ services:
       - '/app/node_modules'
     ports:
       - 8080:8080
-      
+  db:
+    image: postgres:15.1
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=edem1234
+      - POSTGRES_DB=schedule_sms_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+volumes:
+  postgres_data:
