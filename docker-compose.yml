@@ -8,6 +8,7 @@ services:
       - 5000:5000
     environment:
       - DATABASE_URL=postgres://postgres:edem1234@db:5432/schedule_sms_db
+      - SECRET_KEY=63d+mhn#0ljf-$$w5!zn5oci4lxpw_mg0)$$4tg%8mx_esyk^c&%
     volumes:
       - ./services/backend:/app
     command: uvicorn src.main:app --reload --host 0.0.0.0 --port 5000
