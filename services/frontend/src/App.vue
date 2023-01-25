@@ -1,34 +1,28 @@
 <template>
-  <div id="app">
-    <NavBar />
-    <div class="main container">
-      <router-view/>
-    </div>
+  <div>
+    <notifications></notifications>
+    <router-view :key="$route.fullPath"></router-view>
   </div>
 </template>
 
-
 <script>
-// @ is an alias to /src
-import NavBar from '@/components/NavBar.vue'
-export default {
-  components: {
-    NavBar
-  }
-}
+  export default {
+    methods: {
+      // disableRTL() {
+      //   if (!this.$rtl.isRTL) {
+      //     this.$rtl.disableRTL();
+      //   }
+      // },
+      toggleNavOpen() {
+        let root = document.getElementsByTagName('html')[0];
+        root.classList.toggle('nav-open');
+      }
+    },
+    mounted() {
+      // this.$watch('$route', this.disableRTL, { immediate: true });
+      this.$watch('$sidebar.showSidebar', this.toggleNavOpen)
+    }
+  };
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-.main {
-  padding-top: 5em;
-}
-
-</style>
+<style lang="scss"></style>
