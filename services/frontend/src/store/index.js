@@ -1,11 +1,7 @@
-import { createStore } from "vuex";
 
-import notes from './modules/notes';
-import users from './modules/users';
+import { useUserStore } from './modules/users';
 
-export default createStore({
-  modules: {
-    notes,
-    users,
-  }
-});
+export default {
+
+    useUserStore,
+};
