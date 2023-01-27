@@ -73,27 +73,39 @@ export const useUserStore = defineStore("user", {
             this.user = user;
         },
         async signUp(username, password) {
-            try {
-                this.userData = await axios.post('register', { username, password })
-                // showTooltip(`Welcome back ${this.userData.name}!`)
-            } catch (error) {
-                // showTooltip(error)
-                // let the form component display the error
-                return error
-            }
+            const juu = await axios.post('register', { username, password })
+            return juu
+            // showTooltip(`Welcome back ${this.userData.name}!`)
         },
-        async signIn(username = "user1", password = "edem1234") {
+        async signIn({
+            commit
+        }, username, password) {
             let UserForm = new FormData();
             UserForm.append('username', username);
             UserForm.append('password', password);
-            await axios.post('login', UserForm).then( (tokenReceived) => {
-                console.log("tokenReceived",tokenReceived)
-                this.token = tokenReceived
-                console.log("token", this.token)
-            }).catch( (error) => {
-                console.log("error again", error)
-                return error
-            })
+            await axios.post('login', UserForm)
+                .then((response) => {
+                    console.log(`Welcome`, response)
+                    return response
+                    // VueCookies.set('accessToken', response.data.access)
+                    // VueCookies.set('refreshToken', response.data.refresh)
+                    // commit('setUser', User.username)
+                })
+        },
+        async signIIn(username = "user1", password = "edem1234") {
+            let UserForm = new FormData();
+            UserForm.append('username', username);
+            UserForm.append('password', password);
+            // axios.post('login', UserForm).then( response => {
+            //     console.log("res",response)
+            //     this.token = response
+            //     console.log("token", this.token)
+            // }).catch( error => {
+            //     console.log("error again", error)
+            //     return error
+            // })
+            const res = await axios.post('login', UserForm)
+
         },
         async logOut() {
             try {

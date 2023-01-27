@@ -17,8 +17,6 @@ import BlackDashboard from "./plugins/blackDashboard";
 import i18n from "./i18n"
 import './registerServiceWorker'
 
-console.log(5555, process.env.SERVER_URL)
-console.log(6666, process.env.VUE_APP_I18N_FALLBACK_LOCALE)
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = process.env.SERVER_URL || 'http://localhost:5000/'; 

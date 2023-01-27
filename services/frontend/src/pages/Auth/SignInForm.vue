@@ -14,7 +14,8 @@
         </div>
         <div class="row">
             <div class="col-md-6 pr-md-1">
-                <base-input label="Password" v-model="userData.password" type="password" placeholder="Password" required>
+                <base-input label="Password" v-model="userData.password" type="password" placeholder="Password"
+                    required>
                 </base-input>
             </div>
         </div>
@@ -23,12 +24,13 @@
 </template>
 <script>
 import { reactive } from 'vue'
+import axios from 'axios';
+
 import useUserStore from "../../store";
 
 export default {
     setup() {
         const authStore = reactive(useUserStore.useUserStore());
-        console.log(authStore.user)
         const userName = authStore.user
         return { userName, authStore };
 
@@ -53,13 +55,12 @@ export default {
     },
     methods: {
         async submit() {
-            console.log(this.userData.username)
-            await this.authStore.signIn(this.userData.username, this.userData.password).then(() => {
-                console.log(777, "success")
-            }).catch((error) => {
-                console.log(88, "failure", error)
-            });
-            // this.$router.push('/dashboard');
+            await this.authStore.signIn(
+                this.userData.username, this.userData.password
+            ).then((d) => { 
+                console.log("success",d)
+            })
+            // console.log(rr.then((d) => console.log('d', d)))
 
         },
     },
